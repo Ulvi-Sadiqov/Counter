@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: lightskyblue
+        url('https://i.pinimg.com/originals/3c/24/46/3c24462450c2a902bf7e18f3d9aada81.jpg');
+    color: #fff;
+    /* Push to bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100vh;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+header {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    font-size: 60px;
+}
+
+.counters {
+    background: #0f479a;
+    color: #fff;
+    padding: 40px 20px;
+    border-top: 3px lightskyblue solid;
+}
+
+.counters .container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+    text-align: center;
+}
+
+.counters i {
+    color: lightskyblue;
+    margin-bottom: 5px;
+}
+
+.counters .counter {
+    font-size: 45px;
+    margin: 10px 0;
+}
+
+@media (max-width: 700px) {
+    .counters .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .counters .container > div:nth-of-type(1),
+    .counters .container > div:nth-of-type(2) {
+        border-bottom: 1px lightskyblue solid;
+        padding-bottom: 20px;
+    }
+    
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Animated Counter</h1>
+    </header>
+    <section class="counters">
+        <div class="container">
+            <div>
+                <i class="fab fa-youtube fa-4x"></i>
+                <div class="counter" data-target="60000">0</div>
+                <h3>Subscribers</h3>
+            </div>
+            <div>
+                <i class="fab fa-twitter fa-4x"></i>
+                <div class="counter" data-target="15000">0</div>
+                <h3>Followers</h3>
+            </div>
+            <div>
+                <i class="fab fa-facebook fa-4x"></i>
+                <div class="counter" data-target="9000">0</div>
+                <h3>Likes</h3>
+            </div>
+            <div>
+                <i class="fab fa-linkedin fa-4x"></i>
+                <div class="counter" data-target="5000">0</div>
+                <h3>Connections</h3>
+            </div>
+        </div>
+</section>
+
+<script>
+    const counters = document.querySelectorAll('.counter');
+const speed = 200; // The lower the slower
+
+counters.forEach(counter => {
+    const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+
+        // Lower inc to slow and higher to slow
+        const inc = target / speed;
+
+        // console.log(inc);
+        // console.log(count);
+
+        // Check if target is reached
+        if (count < target) {
+            // Add inc to count and output in counter
+            counter.innerText = count + inc;
+            // Call function every ms
+            setTimeout(updateCount, 1);
+        } else {
+            counter.innerText = target;
+        }
+    };
+
+    updateCount();
+});
+</script>
+</body>
+</html>
